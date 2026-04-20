@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+  --color-main: #CBDFBD;
+  --color-accent: #629677;
+  --color-surface: #DECBB7;
+  --color-text: #243829;
+}
+
+html, body {
+  background-color: var(--color-main);
+  color: var(--color-text);
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top bars and bottom nav wrappers */
+.bg-light, .border-top.bg-light, .border-bottom.bg-light{
+background-color: var(--color-main) !important;
+color: var(--color-text) !important;
+}
+
+/* Cards, modal surfaces, and calendar cells */
+.card, .modal-content, .table td, .table th, .form-control, .form-select{
+background-color: var(--color-surface);
+color: var(--color-text);
+border-color: rgba(36, 56, 41, 0.2);
+}
+
+/* Calendar day hover */
+.cal-day:hover{
+color: var(--color-accent) !important;
+text-decoration: underline;
+}
+
+/* Buttons */
+.btn-primary, .btn-success{
+background-color: var(--color-accent) !important;
+border-color: var(--color-accent) !important;
+color: #ffffff !important;
+}
+
+.btn-outline-primary, .btn-outline-secondary{
+color: var(--color-accent) !important;
+border-color: var(--color-accent) !important;
+}
+
+.btn-outline-primary:hover, .btn-outline-secondary:hover{
+background-color: var(--color-accent) !important;
+color: #ffffff !important;
+}
+
+/* Badges */
+.badge.bg-warning, .badge.bg-secondary{
+background-color: var(--color-accent) !important;
+color: #ffffff !important;
+}
+
+/* Links */
+a{
+color: var(--color-text);
+}
+
+a:hover{
+color: var(--color-accent);
+}
+
+/* Bottom nav active page */
+.bottom-nav-link.active{
+background-color: var(--color-accent) !important;
+color: #ffffff !important;
+font-weight: 700;
+}
+
+/* Keep calendar layout */
+.month-grid {
+table-layout: fixed;
+}
+
+.month-grid tbody td{
+height: clamp(88px, 12vw, 132px);
+vertical-align: top;
+}
