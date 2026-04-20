@@ -119,6 +119,13 @@ vertical-align: top;
   cursor: pointer;
 }
 
+/* Event type badge colors — shades of green */
+.event-type-personal     { background-color: #629677 !important; color: #fff !important; }
+.event-type-business     { background-color: #3d6b50 !important; color: #fff !important; }
+.event-type-family       { background-color: #82b996 !important; color: #fff !important; }
+.event-type-recreational { background-color: #a8d5b5 !important; color: #243829 !important; }
+.event-type-social       { background-color: #4f8a67 !important; color: #fff !important; }
+
 .focus-highlight {
   animation: focusFadeOut 1.6s ease-out;
 }
