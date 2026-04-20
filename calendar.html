@@ -158,7 +158,7 @@
                     </tr>
                     <tr>
                         <td><span class="cal-day" data-date="April 12, 2026" onclick="openCreateEvent('April 12, 2026', this)">12</span></td>
-                        <td class="table-active fw-bold"><span class="cal-day" data-date="April 13, 2026" onclick="openCreateEvent('April 13, 2026', this)">13</span>
+                        <td><span class="cal-day" data-date="April 13, 2026" onclick="openCreateEvent('April 13, 2026', this)">13</span>
                         </td>
                         <td><span class="cal-day" data-date="April 14, 2026" onclick="openCreateEvent('April 14, 2026', this)">14</span></td>
                         <td><span class="cal-day" data-date="April 15, 2026" onclick="openCreateEvent('April 15, 2026', this)">15</span></td>
@@ -295,11 +295,17 @@
     let createEventModal, confirmModal;
     let currentDayCell = null;
     let pendingEvent = null;
+    const TODAY_DATE_STR = new Date().toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    });
 
     document.addEventListener('DOMContentLoaded', function () {
         createEventModal = new bootstrap.Modal(document.getElementById('createEventModal'));
         confirmModal = new bootstrap.Modal(document.getElementById('eventConfirmModal'));
         enableDayCellClicks();
+        highlightCurrentDay();
         loadSavedEvents();
         loadFriendEvents();
         highlightFocusedDay();
@@ -387,7 +393,7 @@
         }
 
         // If today, also add to Today's Events list
-        if (pendingEvent.dateStr === 'April 13, 2026') {
+        if (pendingEvent.dateStr === TODAY_DATE_STR) {
             addToTodaysEvents(pendingEvent);
         }
 
@@ -430,10 +436,20 @@
                 span.closest('td').appendChild(div);
             }
             // If today, add to Today's Events
-            if (evt.dateStr === 'April 13, 2026') {
+            if (evt.dateStr === TODAY_DATE_STR) {
                 addToTodaysEvents(evt);
             }
         });
+    }
+
+    function highlightCurrentDay() {
+        const daySpan = document.querySelector(`.cal-day[data-date="${TODAY_DATE_STR}"]`);
+        if (!daySpan) return;
+
+        const dayCell = daySpan.closest('td');
+        if (!dayCell) return;
+
+        dayCell.classList.add('table-active', 'fw-bold');
     }
 
     function loadFriendEvents() {
