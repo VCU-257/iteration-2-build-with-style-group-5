@@ -29,7 +29,9 @@ color: var(--color-text) !important;
 }
 
 /* Homepage current-date banner: slightly darker than the shared top bar green. */
-#homepageDateBanner {
+#homepageDateBanner,
+#calendarTitleBanner,
+#profileTitleBanner {
   background-color: #BDD3AF !important;
 }
 
