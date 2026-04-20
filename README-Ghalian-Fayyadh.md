@@ -1,19 +1,13 @@
 # Student Name: Ghalian Fayyadh
 
 ## 1. My Assigned Work
-Built the Event Confirmation Screen (event.html) a pop-up style form for confirming event details.
+Built the Event Confirmation screen (event.html) for confirming event details. For the design portion, I applied the team CSS color scheme to the event confirmation header areas and surrounding layout so this page visually matched the same theme as the other screens.
 
-## 2. Bootstrap Implementation
-- **Components Used:** Bootstrap Card, Form Controls, Close Button, Button
-- Followed the plan from Table 1 which mapped this screen to a Card component with form controls.
+## 2. AI / LLM Usage
+*Did you use an AI tool to help write or debug your code?*
+* **What I asked the AI:** I asked for small formatting guidance while organizing the page documentation and structure.
+* **How it helped & What I learned:** AI was used very slightly and mainly for formatting reasons. I checked the output and made sure I understood the Bootstrap form and layout classes on my own.
 
-## 3. Technical Challenges & Solutions
-The hardest part was structuring the form fields cleanly inside a card using Bootstrap's built-in form classes without writing any custom CSS.
-
-## 4. AI / LLM Usage
-* **What I asked the AI:** How to structure a Bootstrap 5 card with form inputs.
-* **How it helped & What I learned:** It gave me a starting point. I reviewed each class and adjusted the structure myself to match the wireframe.
-
-## 5. Live Site Link
+## 3. Live Site Link
 *Provide the GitHub Pages link to the specific page(s) you built.*
-* **Live URL:** https://vcu-257.github.io/iteration-1-ugly-build-group-5/homepage.html
+* **Live URL:** https://vcu-257.github.io/iteration-2-build-with-style-group-5/homepage.html

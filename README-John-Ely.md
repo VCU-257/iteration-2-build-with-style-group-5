@@ -1,19 +1,13 @@
 # Student Name: John Tyler Ely
 
 ## 1. My Assigned Work
-Build the Main Calendar Page
+Built the main calendar page. For the design work, I applied the shared CSS color scheme to the calendar header and related calendar section headers so the page stayed consistent with the rest of the app while preserving the calendar layout and event visibility.
 
-## 2. Bootstrap Implementation
-- **Components Used:** Badge, Navbar, Btn-Small, Img-Fluid, Flex-Nowrap, Table,   
+## 2. AI / LLM Usage
+*Did you use an AI tool to help write or debug your code?*
+* **What I asked the AI:** I asked for minimal help with formatting and presentation structure.
+* **How it helped & What I learned:** AI was used very slightly and mainly for formatting reasons. I still reviewed and adjusted the final HTML/CSS behavior myself to ensure I understood the implementation.
 
-
-## 3. Technical Challenges & Solutions
-I struggled the most with the mobile app layout and making things fit such as events on the calender where I had to add a + more button. I also struggled figuring out the horizontal scroll function.
-
-## 4. AI / LLM Usage
-* **What I asked the AI:** How to properly implement a calendar page using HTMl and Bootstrap for a mobile first design.
-* **How it helped & What I learned:** It gave me a starting point and I reviewed then changed /added the elements needed to specifically fit our ideal calendar page
-
-## 5. Live Site Link
+## 3. Live Site Link
 *Provide the GitHub Pages link to the specific page(s) you built.*
-* **Live URL:** https://vcu-257.github.io/iteration-1-ugly-build-group-5/homepage.html
+* **Live URL:** https://vcu-257.github.io/iteration-2-build-with-style-group-5/homepage.html
