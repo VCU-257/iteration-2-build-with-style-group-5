@@ -87,3 +87,23 @@ table-layout: fixed;
 height: clamp(88px, 12vw, 132px);
 vertical-align: top;
 }
+
+.event-badge-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.focus-highlight {
+  animation: focusFadeOut 1.6s ease-out;
+}
+
+@keyframes focusFadeOut {
+  0% {
+    background-color: rgba(98, 150, 119, 0.75);
+  }
+  100% {
+    background-color: transparent;
+  }
+}

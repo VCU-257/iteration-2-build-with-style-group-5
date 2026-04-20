@@ -295,6 +295,8 @@
     let createEventModal, confirmModal;
     let currentDayCell = null;
     let pendingEvent = null;
+    let editMode = false;
+    let editingEventId = null;
     const TODAY_DATE_STR = new Date().toLocaleDateString('en-US', {
         month: 'long',
         day: 'numeric',
@@ -328,6 +330,8 @@
     }
 
     function openCreateEvent(dateStr, spanEl) {
+        editMode = false;
+        editingEventId = null;
         currentDayCell = spanEl.closest('td');
         document.getElementById('eventName').value = '';
         document.getElementById('eventDesc').value = '';
@@ -336,7 +340,43 @@
         document.getElementById('eventPeople').value = '';
         document.getElementById('eventNameError').classList.add('d-none');
         document.getElementById('eventTimeError').classList.add('d-none');
+        document.getElementById('createEventModalLabel').textContent = 'Create Event';
         createEventModal.show();
+    }
+
+    function openEditEvent(evt) {
+        editMode = true;
+        editingEventId = evt.id;
+
+        const daySpan = document.querySelector(`.cal-day[data-date="${evt.dateStr}"]`);
+        currentDayCell = daySpan ? daySpan.closest('td') : null;
+
+        document.getElementById('eventName').value = evt.name || '';
+        document.getElementById('eventDesc').value = evt.desc || '';
+        document.getElementById('eventDate').value = evt.dateStr || '';
+        document.getElementById('eventPeople').value = evt.people || '';
+        document.getElementById('eventNameError').classList.add('d-none');
+        document.getElementById('eventTimeError').classList.add('d-none');
+
+        const parsed = parseDisplayTimeToInput(evt.timeStr || '');
+        document.getElementById('eventTime').value = parsed || '';
+
+        document.getElementById('createEventModalLabel').textContent = 'Edit Event';
+        createEventModal.show();
+    }
+
+    function parseDisplayTimeToInput(displayTime) {
+        const match = displayTime.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+        if (!match) return '';
+
+        let hour = parseInt(match[1], 10);
+        const minute = match[2];
+        const meridiem = match[3].toUpperCase();
+
+        if (meridiem === 'PM' && hour !== 12) hour += 12;
+        if (meridiem === 'AM' && hour === 12) hour = 0;
+
+        return `${String(hour).padStart(2, '0')}:${minute}`;
     }
 
     function submitCreateEvent() {
@@ -365,6 +405,7 @@
             const timeStr = `${hour12}:${m} ${ampm}`;
 
             pendingEvent = {
+                id: editMode ? editingEventId : `evt-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
                 name,
                 desc: document.getElementById('eventDesc').value.trim(),
                 dateStr: document.getElementById('eventDate').value,
@@ -385,24 +426,21 @@
     function confirmEvent() {
         if (!pendingEvent) return;
 
-        // Add badge to the calendar cell
-        if (currentDayCell) {
-            const div = document.createElement('div');
-            div.innerHTML = `<span class="badge bg-warning text-dark">${pendingEvent.name}</span>`;
-            currentDayCell.appendChild(div);
+        const saved = getSavedEvents();
+        const targetIndex = saved.findIndex(evt => evt.id === pendingEvent.id);
+
+        if (targetIndex >= 0) {
+            saved[targetIndex] = pendingEvent;
+        } else {
+            saved.push(pendingEvent);
         }
 
-        // If today, also add to Today's Events list
-        if (pendingEvent.dateStr === TODAY_DATE_STR) {
-            addToTodaysEvents(pendingEvent);
-        }
-
-        // Save to localStorage
-        const saved = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
-        saved.push(pendingEvent);
         localStorage.setItem('calendarEvents', JSON.stringify(saved));
+        renderSavedEvents();
 
         pendingEvent = null;
+        editMode = false;
+        editingEventId = null;
         confirmModal.hide();
     }
 
@@ -415,7 +453,7 @@
         const container = document.getElementById('todaysEventsContainer');
         if (!container) return;
         const div = document.createElement('div');
-        div.className = 'card mb-2';
+        div.className = 'card mb-2 personal-today-event';
         div.innerHTML = `
             <div class="card-body py-2">
                 <h6 class="card-title mb-1">${evt.name}</h6>
@@ -425,21 +463,64 @@
         container.appendChild(div);
     }
 
-    function loadSavedEvents() {
-        const saved = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+    function getSavedEvents() {
+        return JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+    }
+
+    function normalizeSavedEvents(events) {
+        let changed = false;
+        const normalized = events.map(evt => {
+            if (evt.id) return evt;
+            changed = true;
+            return {
+                ...evt,
+                id: `evt-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+            };
+        });
+
+        if (changed) {
+            localStorage.setItem('calendarEvents', JSON.stringify(normalized));
+        }
+
+        return normalized;
+    }
+
+    function clearRenderedPersonalEvents() {
+        document.querySelectorAll('.personal-event-wrapper').forEach(node => node.remove());
+        document.querySelectorAll('.personal-today-event').forEach(node => node.remove());
+    }
+
+    function renderSavedEvents() {
+        clearRenderedPersonalEvents();
+        const saved = normalizeSavedEvents(getSavedEvents());
+
         saved.forEach(evt => {
-            // Add badge to matching calendar cell
             const span = document.querySelector(`.cal-day[data-date="${evt.dateStr}"]`);
-            if (span) {
-                const div = document.createElement('div');
-                div.innerHTML = `<span class="badge bg-warning text-dark">${evt.name}</span>`;
-                span.closest('td').appendChild(div);
-            }
-            // If today, add to Today's Events
+            if (!span) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'personal-event-wrapper';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'event-badge-button';
+            button.innerHTML = `<span class="badge bg-warning text-dark">${evt.name}</span>`;
+            button.addEventListener('click', function (event) {
+                event.stopPropagation();
+                openEditEvent(evt);
+            });
+
+            wrapper.appendChild(button);
+            span.closest('td').appendChild(wrapper);
+
             if (evt.dateStr === TODAY_DATE_STR) {
                 addToTodaysEvents(evt);
             }
         });
+    }
+
+    function loadSavedEvents() {
+        renderSavedEvents();
     }
 
     function highlightCurrentDay() {
@@ -458,6 +539,9 @@
             if (span) {
                 const div = document.createElement('div');
                 div.innerHTML = `<span class="badge bg-secondary">${evt.name}</span>`;
+                div.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                });
                 span.closest('td').appendChild(div);
             }
         });
@@ -476,22 +560,9 @@
 
         dayCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        dayCell.classList.add('bg-warning-subtle', 'opacity-100');
-        setTimeout(() => {
-            dayCell.classList.remove('opacity-100');
-            dayCell.classList.add('opacity-75');
-        }, 350);
-        setTimeout(() => {
-            dayCell.classList.remove('opacity-75');
-            dayCell.classList.add('opacity-50');
-        }, 700);
-        setTimeout(() => {
-            dayCell.classList.remove('opacity-50');
-            dayCell.classList.add('opacity-25');
-        }, 1050);
-        setTimeout(() => {
-            dayCell.classList.remove('bg-warning-subtle', 'opacity-25');
-        }, 1400);
+        dayCell.classList.remove('focus-highlight');
+        void dayCell.offsetWidth;
+        dayCell.classList.add('focus-highlight');
 
         // Prevent re-running highlight on refresh/back navigation.
         window.history.replaceState({}, document.title, 'calendar.html');
