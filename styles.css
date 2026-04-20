@@ -2,6 +2,7 @@
 
 :root {
   --color-main: #CBDFBD;
+  --color-main-darker: #BCD3AE;
   --color-accent: #629677;
   --color-surface: #DECBB7;
   --color-text: #243829;
@@ -88,6 +89,17 @@ height: clamp(88px, 12vw, 132px);
 vertical-align: top;
 }
 
+#createEventModal .modal-header {
+  background-color: var(--color-main-darker);
+  color: var(--color-text);
+}
+
+.month-grid thead.table-dark th {
+  background-color: var(--color-main-darker);
+  color: var(--color-text);
+  border-color: rgba(36, 56, 41, 0.2);
+}
+
 .event-badge-button {
   border: 0;
   padding: 0;
@@ -101,9 +113,9 @@ vertical-align: top;
 
 @keyframes focusFadeOut {
   0% {
-    background-color: rgba(98, 150, 119, 0.75);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-active-bg);
   }
   100% {
-    background-color: transparent;
+    box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0);
   }
 }
