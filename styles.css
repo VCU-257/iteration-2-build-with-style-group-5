@@ -28,6 +28,11 @@ background-color: var(--color-main) !important;
 color: var(--color-text) !important;
 }
 
+/* Homepage current-date banner: slightly darker than the shared top bar green. */
+#homepageDateBanner {
+  background-color: #BDD3AF !important;
+}
+
 /* Cards, modal surfaces, and calendar cells */
 .card, .modal-content, .table td, .table th, .form-control, .form-select{
 background-color: var(--color-surface);
