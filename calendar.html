@@ -113,7 +113,23 @@
             <div class="col-12 col-lg-6">
                 <h6 class="fw-bold mb-2">Photos</h6>
                 <div class="border rounded overflow-auto p-2">
-                    <img src="https://picsum.photos/200/300" class="img-fluid rounded" alt="Event photo" />
+                    <a
+                        class="d-inline-block mb-2 text-decoration-none"
+                        data-bs-toggle="collapse"
+                        href="#pingResponsePhoto"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="pingResponsePhoto">
+                        <span class="badge bg-warning">Sarah answered your ping</span>
+                    </a>
+                    <div class="collapse" id="pingResponsePhoto">
+                        <div class="card card-body p-2">
+                            <img
+                                src="https://picsum.photos/id/64/500/320"
+                                class="img-fluid rounded"
+                                alt="Photo shared by Sarah" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
