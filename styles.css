@@ -5,6 +5,7 @@
   --color-main-darker: #557F65;
   --color-accent: #629677;
   --color-surface: #DECBB7;
+  --color-surface-darker: #C9B39D;
   --color-text: #243829;
 }
 
@@ -99,8 +100,9 @@ height: clamp(88px, 12vw, 132px);
 vertical-align: top;
 }
 
-#createEventModal .modal-header {
-  background-color: var(--color-main-darker);
+#createEventModal .modal-header,
+#eventConfirmModal .modal-header {
+  background-color: var(--color-surface-darker);
   color: var(--color-text);
 }
 
