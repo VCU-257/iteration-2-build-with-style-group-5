@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotocate</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .cal-day { cursor: pointer; }
+        .cal-day:hover { text-decoration: underline; color: #0d6efd; }
+        .month-grid {
+            table-layout: fixed;
+        }
+        .month-grid tbody td {
+            height: clamp(88px, 12vw, 132px);
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid min-vh-100 d-flex flex-column p-0">
+
+    <!-- Top Title bar -->
+    <div class="bg-light border-bottom text-center py-3">
+        <h5 class="mb-0">Fotocate</h5>
+    </div>
+
+    <div class="flex-grow-1 overflow-auto p-3 pb-5 mb-5">
+
+        <!-- Month navigation -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-outline-secondary btn-sm">&laquo; Prev</button>
+            <h6 class="mb-0 fw-bold">April 2026</h6>
+            <button class="btn btn-outline-secondary btn-sm">Next &raquo;</button>
+        </div>
+
+        <!-- Friend's Events -->
+        <h6 class="fw-bold mb-2">Friend's Events</h6>
+        <div class="d-flex flex-nowrap overflow-auto gap-3 mb-4 pb-2">
+
+            <div class="col-10 col-sm-6 col-md-4 col-lg-3 flex-shrink-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Doctor Appointment</h6>
+                        <p class="card-text"><small class="text-muted">2:00 - 3:00 PM</small></p>
+                        <span class="badge bg-secondary">Jonathan</span>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Apr 13</small>
+                        <button class="btn btn-outline-primary btn-sm">Ping</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10 col-sm-6 col-md-4 col-lg-3 flex-shrink-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Study Group</h6>
+                        <p class="card-text"><small class="text-muted">4:00 - 5:30 PM</small></p>
+                        <span class="badge bg-secondary">Sarah</span>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Apr 13</small>
+                        <button class="btn btn-outline-primary btn-sm">Ping</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10 col-sm-6 col-md-4 col-lg-3 flex-shrink-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Jonathan's Lunch</h6>
+                        <p class="card-text"><small class="text-muted">12:00 - 1:00 PM</small></p>
+                        <span class="badge bg-secondary">Jonathan</span>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Apr 13</small>
+                        <button class="btn btn-outline-primary btn-sm">Ping</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10 col-sm-6 col-md-4 col-lg-3 flex-shrink-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Sarah's Class</h6>
+                        <p class="card-text"><small class="text-muted">2:00 - 3:30 PM</small></p>
+                        <span class="badge bg-secondary">Sarah</span>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Apr 13</small>
+                        <button class="btn btn-outline-primary btn-sm">Ping</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Daily Activity and Photos -->
+        <div class="row g-3 mb-4">
+
+            <!-- Today's events -->
+            <div class="col-12 col-lg-6">
+                <h6 class="fw-bold mb-2">Today's Events</h6>
+                <div id="todaysEventsContainer" class="border rounded overflow-auto p-2">
+                </div>
+            </div>
+
+            <!-- Photos box -->
+            <div class="col-12 col-lg-6">
+                <h6 class="fw-bold mb-2">Photos</h6>
+                <div class="border rounded overflow-auto p-2">
+                    <img src="https://picsum.photos/200/300" class="img-fluid rounded" alt="Event photo" />
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Monthly calendar -->
+        <h6 class="fw-bold mb-2">April 2026</h6>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm text-center align-top month-grid">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Su</th>
+                        <th>Mo</th>
+                        <th>Tu</th>
+                        <th>We</th>
+                        <th>Th</th>
+                        <th>Fr</th>
+                        <th>Sa</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="text-muted">29</td>
+                        <td class="text-muted">30</td>
+                        <td class="text-muted">31</td>
+                        <td><span class="cal-day" data-date="April 1, 2026" onclick="openCreateEvent('April 1, 2026', this)">1</span></td>
+                        <td><span class="cal-day" data-date="April 2, 2026" onclick="openCreateEvent('April 2, 2026', this)">2</span></td>
+                        <td><span class="cal-day" data-date="April 3, 2026" onclick="openCreateEvent('April 3, 2026', this)">3</span></td>
+                        <td><span class="cal-day" data-date="April 4, 2026" onclick="openCreateEvent('April 4, 2026', this)">4</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cal-day" data-date="April 5, 2026" onclick="openCreateEvent('April 5, 2026', this)">5</span></td>
+                        <td><span class="cal-day" data-date="April 6, 2026" onclick="openCreateEvent('April 6, 2026', this)">6</span></td>
+                        <td><span class="cal-day" data-date="April 7, 2026" onclick="openCreateEvent('April 7, 2026', this)">7</span></td>
+                        <td><span class="cal-day" data-date="April 8, 2026" onclick="openCreateEvent('April 8, 2026', this)">8</span></td>
+                        <td><span class="cal-day" data-date="April 9, 2026" onclick="openCreateEvent('April 9, 2026', this)">9</span></td>
+                        <td><span class="cal-day" data-date="April 10, 2026" onclick="openCreateEvent('April 10, 2026', this)">10</span></td>
+                        <td><span class="cal-day" data-date="April 11, 2026" onclick="openCreateEvent('April 11, 2026', this)">11</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cal-day" data-date="April 12, 2026" onclick="openCreateEvent('April 12, 2026', this)">12</span></td>
+                        <td class="table-active fw-bold"><span class="cal-day" data-date="April 13, 2026" onclick="openCreateEvent('April 13, 2026', this)">13</span>
+                        </td>
+                        <td><span class="cal-day" data-date="April 14, 2026" onclick="openCreateEvent('April 14, 2026', this)">14</span></td>
+                        <td><span class="cal-day" data-date="April 15, 2026" onclick="openCreateEvent('April 15, 2026', this)">15</span></td>
+                        <td><span class="cal-day" data-date="April 16, 2026" onclick="openCreateEvent('April 16, 2026', this)">16</span></td>
+                        <td><span class="cal-day" data-date="April 17, 2026" onclick="openCreateEvent('April 17, 2026', this)">17</span></td>
+                        <td><span class="cal-day" data-date="April 18, 2026" onclick="openCreateEvent('April 18, 2026', this)">18</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cal-day" data-date="April 19, 2026" onclick="openCreateEvent('April 19, 2026', this)">19</span></td>
+                        <td><span class="cal-day" data-date="April 20, 2026" onclick="openCreateEvent('April 20, 2026', this)">20</span></td>
+                        <td><span class="cal-day" data-date="April 21, 2026" onclick="openCreateEvent('April 21, 2026', this)">21</span></td>
+                        <td><span class="cal-day" data-date="April 22, 2026" onclick="openCreateEvent('April 22, 2026', this)">22</span></td>
+                        <td><span class="cal-day" data-date="April 23, 2026" onclick="openCreateEvent('April 23, 2026', this)">23</span></td>
+                        <td><span class="cal-day" data-date="April 24, 2026" onclick="openCreateEvent('April 24, 2026', this)">24</span></td>
+                        <td><span class="cal-day" data-date="April 25, 2026" onclick="openCreateEvent('April 25, 2026', this)">25</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="cal-day" data-date="April 26, 2026" onclick="openCreateEvent('April 26, 2026', this)">26</span></td>
+                        <td><span class="cal-day" data-date="April 27, 2026" onclick="openCreateEvent('April 27, 2026', this)">27</span></td>
+                        <td><span class="cal-day" data-date="April 28, 2026" onclick="openCreateEvent('April 28, 2026', this)">28</span></td>
+                        <td><span class="cal-day" data-date="April 29, 2026" onclick="openCreateEvent('April 29, 2026', this)">29</span></td>
+                        <td><span class="cal-day" data-date="April 30, 2026" onclick="openCreateEvent('April 30, 2026', this)">30</span></td>
+                        <td class="text-muted">1</td>
+                        <td class="text-muted">2</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal fade" id="createEventModal" tabindex="-1" aria-labelledby="createEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createEventModalLabel">Create Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Event Name <span class="text-danger">*</span></label>
+                        <input type="text" id="eventName" class="form-control" placeholder="Enter event name">
+                        <div id="eventNameError" class="text-danger small d-none">Event name is required.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input type="text" id="eventDesc" class="form-control" placeholder="Optional">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date <span class="text-danger">*</span></label>
+                        <input type="text" id="eventDate" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Time <span class="text-danger">*</span></label>
+                        <input type="time" id="eventTime" class="form-control">
+                        <div id="eventTimeError" class="text-danger small d-none">Time is required.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">People</label>
+                        <select id="eventPeople" class="form-select">
+                            <option value="" selected></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitCreateEvent()">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Confirmation Modal -->
+    <div class="modal fade" id="eventConfirmModal" tabindex="-1" aria-labelledby="eventConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventConfirmModalLabel">Event Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Event Name:</strong> <span id="confirmName"></span></p>
+                    <p><strong>Description:</strong> <span id="confirmDesc"></span></p>
+                    <p><strong>Date:</strong> <span id="confirmDate"></span></p>
+                    <p><strong>Time:</strong> <span id="confirmTime"></span></p>
+                    <p><strong>People:</strong> <span id="confirmPeople"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="backToCreate()">Back</button>
+                    <button type="button" class="btn btn-success" onclick="confirmEvent()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom nav bar -->
+    <div class="border-top bg-light fixed-bottom">
+        <div class="row g-0 text-center">
+            <div class="col">
+                <a href="homepage.html" class="btn btn-light w-100 rounded-0 py-3">Home</a>
+            </div>
+            <div class="col">
+                <a href="calendar.html" class="btn btn-light w-100 rounded-0 py-3 fw-bold">Calendar</a>
+            </div>
+            <div class="col">
+                <a href="messages.html" class="btn btn-light w-100 rounded-0 py-3">Messages</a>
+            </div>
+            <div class="col">
+                <a href="profile.html" class="btn btn-light w-100 rounded-0 py-3">Profile</a>
+            </div>
+            <div class="col">
+                <a href="settings.html" class="btn btn-light w-100 rounded-0 py-3">Settings</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const FRIEND_EVENTS = [
+        { name: 'Doctor Appointment', dateStr: 'April 13, 2026', timeStr: '2:00 PM - 3:00 PM', owner: 'Jonathan', participants: ['Jonathan'] },
+        { name: 'Study Group', dateStr: 'April 13, 2026', timeStr: '4:00 PM - 5:30 PM', owner: 'Sarah', participants: ['Sarah', 'Jonathan'] },
+        { name: "Jonathan's Lunch", dateStr: 'April 13, 2026', timeStr: '12:00 PM - 1:00 PM', owner: 'Jonathan', participants: ['Jonathan'] },
+        { name: "Sarah's Class", dateStr: 'April 13, 2026', timeStr: '2:00 PM - 3:30 PM', owner: 'Sarah', participants: ['Sarah'] }
+    ];
+
+    let createEventModal, confirmModal;
+    let currentDayCell = null;
+    let pendingEvent = null;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        createEventModal = new bootstrap.Modal(document.getElementById('createEventModal'));
+        confirmModal = new bootstrap.Modal(document.getElementById('eventConfirmModal'));
+        enableDayCellClicks();
+        loadSavedEvents();
+        loadFriendEvents();
+        highlightFocusedDay();
+    });
+
+    function enableDayCellClicks() {
+        document.querySelectorAll('.cal-day').forEach(span => {
+            const dateStr = span.dataset.date;
+            const dayCell = span.closest('td');
+            if (!dateStr || !dayCell) return;
+
+            // Switch from number-only click target to full day-cell click target.
+            span.removeAttribute('onclick');
+            dayCell.style.cursor = 'pointer';
+            dayCell.setAttribute('role', 'button');
+            dayCell.addEventListener('click', function () {
+                openCreateEvent(dateStr, span);
+            });
+        });
+    }
+
+    function openCreateEvent(dateStr, spanEl) {
+        currentDayCell = spanEl.closest('td');
+        document.getElementById('eventName').value = '';
+        document.getElementById('eventDesc').value = '';
+        document.getElementById('eventDate').value = dateStr;
+        document.getElementById('eventTime').value = '';
+        document.getElementById('eventPeople').value = '';
+        document.getElementById('eventNameError').classList.add('d-none');
+        document.getElementById('eventTimeError').classList.add('d-none');
+        createEventModal.show();
+    }
+
+    function submitCreateEvent() {
+        const name = document.getElementById('eventName').value.trim();
+        const time = document.getElementById('eventTime').value.trim();
+        let valid = true;
+
+        if (!name) {
+            document.getElementById('eventNameError').classList.remove('d-none');
+            valid = false;
+        } else {
+            document.getElementById('eventNameError').classList.add('d-none');
+        }
+        if (!time) {
+            document.getElementById('eventTimeError').classList.remove('d-none');
+            valid = false;
+        } else {
+            document.getElementById('eventTimeError').classList.add('d-none');
+        }
+
+        if (valid) {
+            const [h, m] = time.split(':');
+            const hour = parseInt(h);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            const timeStr = `${hour12}:${m} ${ampm}`;
+
+            pendingEvent = {
+                name,
+                desc: document.getElementById('eventDesc').value.trim(),
+                dateStr: document.getElementById('eventDate').value,
+                timeStr,
+                people: document.getElementById('eventPeople').value
+            };
+
+            document.getElementById('confirmName').textContent = name;
+            document.getElementById('confirmDesc').textContent = pendingEvent.desc || '—';
+            document.getElementById('confirmDate').textContent = pendingEvent.dateStr;
+            document.getElementById('confirmTime').textContent = timeStr;
+            document.getElementById('confirmPeople').textContent = pendingEvent.people || '—';
+            createEventModal.hide();
+            confirmModal.show();
+        }
+    }
+
+    function confirmEvent() {
+        if (!pendingEvent) return;
+
+        // Add badge to the calendar cell
+        if (currentDayCell) {
+            const div = document.createElement('div');
+            div.innerHTML = `<span class="badge bg-warning text-dark">${pendingEvent.name}</span>`;
+            currentDayCell.appendChild(div);
+        }
+
+        // If today, also add to Today's Events list
+        if (pendingEvent.dateStr === 'April 13, 2026') {
+            addToTodaysEvents(pendingEvent);
+        }
+
+        // Save to localStorage
+        const saved = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+        saved.push(pendingEvent);
+        localStorage.setItem('calendarEvents', JSON.stringify(saved));
+
+        pendingEvent = null;
+        confirmModal.hide();
+    }
+
+    function backToCreate() {
+        confirmModal.hide();
+        createEventModal.show();
+    }
+
+    function addToTodaysEvents(evt) {
+        const container = document.getElementById('todaysEventsContainer');
+        if (!container) return;
+        const div = document.createElement('div');
+        div.className = 'card mb-2';
+        div.innerHTML = `
+            <div class="card-body py-2">
+                <h6 class="card-title mb-1">${evt.name}</h6>
+                <small class="text-muted">${evt.timeStr}</small><br>
+                <span class="badge bg-warning text-dark">Personal</span>
+            </div>`;
+        container.appendChild(div);
+    }
+
+    function loadSavedEvents() {
+        const saved = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+        saved.forEach(evt => {
+            // Add badge to matching calendar cell
+            const span = document.querySelector(`.cal-day[data-date="${evt.dateStr}"]`);
+            if (span) {
+                const div = document.createElement('div');
+                div.innerHTML = `<span class="badge bg-warning text-dark">${evt.name}</span>`;
+                span.closest('td').appendChild(div);
+            }
+            // If today, add to Today's Events
+            if (evt.dateStr === 'April 13, 2026') {
+                addToTodaysEvents(evt);
+            }
+        });
+    }
+
+    function loadFriendEvents() {
+        FRIEND_EVENTS.forEach(evt => {
+            const span = document.querySelector(`.cal-day[data-date="${evt.dateStr}"]`);
+            if (span) {
+                const div = document.createElement('div');
+                div.innerHTML = `<span class="badge bg-secondary">${evt.name}</span>`;
+                span.closest('td').appendChild(div);
+            }
+        });
+    }
+
+    function highlightFocusedDay() {
+        const params = new URLSearchParams(window.location.search);
+        const focusDate = params.get('focusDate');
+        if (!focusDate) return;
+
+        const daySpan = document.querySelector(`.cal-day[data-date="${focusDate}"]`);
+        if (!daySpan) return;
+
+        const dayCell = daySpan.closest('td');
+        if (!dayCell) return;
+
+        dayCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        dayCell.classList.add('bg-warning-subtle', 'opacity-100');
+        setTimeout(() => {
+            dayCell.classList.remove('opacity-100');
+            dayCell.classList.add('opacity-75');
+        }, 350);
+        setTimeout(() => {
+            dayCell.classList.remove('opacity-75');
+            dayCell.classList.add('opacity-50');
+        }, 700);
+        setTimeout(() => {
+            dayCell.classList.remove('opacity-50');
+            dayCell.classList.add('opacity-25');
+        }, 1050);
+        setTimeout(() => {
+            dayCell.classList.remove('bg-warning-subtle', 'opacity-25');
+        }, 1400);
+
+        // Prevent re-running highlight on refresh/back navigation.
+        window.history.replaceState({}, document.title, 'calendar.html');
+    }
+</script>
+
+</body>
+</html>
