@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
 
 :root {
-  --color-main: #CBDFBD;
-  --color-main-darker: #BCD3AE;
-  --color-accent: #629677;
-  --color-surface: #DECBB7;
+  --color-main: #629677;
+  --color-main-darker: #557F65;
+  --color-accent: #CBDFBD;
+  --color-surface: #947c63;
   --color-text: #243829;
 }
 
@@ -63,6 +63,16 @@ background-color: var(--color-accent) !important;
 color: #ffffff !important;
 }
 
+/* Keep event badges on calendar/homepage in the original event color. */
+#weekContainer .badge.bg-warning,
+#todaysEventsContainer .badge.bg-warning,
+.month-grid .badge.bg-warning,
+.month-grid .badge.bg-secondary,
+.personal-event-wrapper .badge.bg-warning {
+  background-color: #629677 !important;
+  color: #ffffff !important;
+}
+
 /* Links */
 a{
 color: var(--color-text);
@@ -75,7 +85,7 @@ color: var(--color-accent);
 /* Bottom nav active page */
 .bottom-nav-link.active{
 background-color: var(--color-accent) !important;
-color: #ffffff !important;
+color: #000000 !important;
 font-weight: 700;
 }
 
